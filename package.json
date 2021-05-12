@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.10",
     "@react-navigation/material-bottom-tabs": "^5.3.15",
@@ -15,6 +17,7 @@
     "@react-navigation/stack": "^5.14.4",
     "expo": "~41.0.1",
     "expo-status-bar": "~1.0.4",
+    "firebase": "8.2.3",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -26,3 +26,13 @@ export function getRecipesByRecipeName(recipeName) {
   });
   return recipesArray;
 }
+
+export function getIngredientName(ingredientID) {
+  let name;
+  ingredients.map(data => {
+    if (data.ingredientId == ingredientID) {
+      name = data.name;
+    }
+  });
+  return name;
+}

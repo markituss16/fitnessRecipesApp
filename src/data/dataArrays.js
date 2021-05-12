@@ -1,6 +1,7 @@
 export const recipes = [
     {
         recipeId: 1,
+        author: 'Marc Palma',
         categoryId: 1,
         title: 'Brownie Fit',
         photo_url: require('../../assets/brownie.jpg'),
@@ -11,36 +12,53 @@ export const recipes = [
           'https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1439,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1492718105/articles/2013/09/24/burger-king-s-new-french-fries-took-ten-years-to-develop/130923-gross-burger-tease_izz59e',
           'https://aht.seriouseats.com/images/2012/02/20120221-193971-fast-food-fries-Burger-King-fries-2.jpg'
         ],
+        time: 60,
+        description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },
     {
       recipeId: 3,
+      author: 'Jordi Pérez',
       categoryId: 3,
       title: 'Xips de verdures',
       photo_url: require('../../assets/xips.jpg'),
+      time: 60,
+      description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },
     {
       recipeId: 2,
+      author: 'Marta Garcia',
       categoryId: 2,
       title: 'Pasta proteica amb salmó i espàrrecs',
       photo_url: require('../../assets/pasta_esparrecs.jpg'),
+      time: 60,
+      description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },
     {
       recipeId: 4,
+      author: 'Marc Palma',
       categoryId: 4,
       title: 'Amanida d\'espinacs, alvocat i nous',
       photo_url: require('../../assets/amanida_alvocat.jpg'),
+      time: 60,
+      description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },
     {
       recipeId: 5,
+      author: 'Marc Palma',
       categoryId: 5,
       title: 'Arròs amb pollastre i bròcoli',
       photo_url: require('../../assets/arros-pollastre-broc.jpg'),
+      time: 60,
+      description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },
     {
       recipeId: 6,
+      author: 'Marc Palma',
       categoryId: 6,
       title: 'Gall d\'indi amb mongeta tendra i purè de patata',
       photo_url: require('../../assets/gall-indi.jpg'),
+      time: 60,
+      description: 'In a blender, combine all ingredients and blend until smooth. Then divide between 2 cups and top with blackberries, if desired.'
     },   
 ];
 

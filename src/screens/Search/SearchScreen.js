@@ -11,6 +11,7 @@ import { ListItem, SearchBar } from 'react-native-elements';
 import {
   getRecipesByRecipeName
 } from '../../data/MockData';
+import ViewIngredientsButton from '../../components/ViewProducts';
 
 export default class Search extends React.Component {
   constructor(props) {
