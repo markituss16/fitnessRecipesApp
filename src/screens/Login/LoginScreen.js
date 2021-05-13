@@ -76,7 +76,7 @@ export default class Login extends Component {
                     secureTextEntry={true}
                 />
                 <Button
-                    color="#3740FE"
+                    color="#C84348"
                     title="Iniciar sessió"
                     onPress={() => this.userLogin()}
                 />
@@ -86,7 +86,7 @@ export default class Login extends Component {
                     No tens un compte? Registra't
                 </Text>
                 <Text
-                    style={styles.loginText}
+                    style={styles.anonymousText}
                     onPress={() => this.userAnonymously()}>
                     Entra com a convidat
                 </Text>

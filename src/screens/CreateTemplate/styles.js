@@ -6,16 +6,20 @@ const styles = StyleSheet.create ({
       display: 'flex',
       flexWrap: 'wrap',
     },
-    fons:{
+    fons: {
         shadowColor: '#00000021',
         shadowOffset: {
           width: 2
         },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        marginVertical: 8,
+        marginVertical: 10,
         backgroundColor:"white"
-      },
+    },
+    titol: {
+      fontSize: 18,
+      fontWeight: 'bold'
+    },
 });
 
 export default styles; 

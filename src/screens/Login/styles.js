@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1
     },
     loginText: {
-      color: '#3740FE',
+      color: '#C84348',
       marginTop: 25,
       textAlign: 'center'
     },
@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#fff'
+    },
+    anonymousText: {
+      color: '#000000',
+      marginTop: 25,
+      textAlign: 'center',
+      fontWeight: 'bold'
     }
 });
 

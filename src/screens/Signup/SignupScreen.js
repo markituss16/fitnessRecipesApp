@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../database/firebaseDB';
 import styles from './styles';
 
@@ -78,7 +78,7 @@ export default class Signup extends React.Component {
                     secureTextEntry={true}
                 />
                 <Button
-                    color="#3740FE"
+                    color="#C84348"
                     title="Registrar-se"
                     onPress={() => this.registerUser()}
                 />

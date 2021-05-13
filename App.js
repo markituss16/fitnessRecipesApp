@@ -27,7 +27,7 @@ function BottomNavigator() {
                 name="Inici"
                 component={HomeScreen}
                 options={{
-                    tabBarColor: '#000000',
+                    tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="home" color={color} size={26} />
                     ),
@@ -37,7 +37,7 @@ function BottomNavigator() {
                 name="Buscar"
                 component={Search}
                 options={{
-                    tabBarColor: '#000000',
+                    tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="text-search" color={color} size={26} />
                     ),
@@ -47,7 +47,7 @@ function BottomNavigator() {
                 name="Afegir"
                 component={CreateTemplateScreen}
                 options={{
-                    tabBarColor: '#000000',
+                    tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="plus-circle-outline" color={color} size={26} />
                     ),
@@ -57,7 +57,7 @@ function BottomNavigator() {
                 name="Aliments"
                 component={IngredientsScreen}
                 options={{
-                    tabBarColor: '#000000',
+                    tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="food-variant" color={color} size={26} />
                     ),
@@ -67,7 +67,7 @@ function BottomNavigator() {
                 name="Perfil"
                 component={ProfileScreen}
                 options={{
-                    tabBarColor: '#000000',
+                    tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="face-profile" color={color} size={26} />
                     ),
@@ -84,7 +84,7 @@ function MainNavigator() {
             screenOptions={{
                 headerTitleAlign: 'center',
                 headerStyle: {
-                  backgroundColor: '#3740FE',
+                  backgroundColor: '#C84348',
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
