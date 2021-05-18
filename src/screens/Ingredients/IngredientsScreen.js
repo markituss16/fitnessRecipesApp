@@ -5,7 +5,8 @@ import {
   View,
   Image,
   TouchableHighlight,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView
 } from 'react-native';
 import styles from './styles';
 import { SearchBar } from 'react-native-elements';
@@ -21,8 +22,7 @@ export default class IngredientsScreen extends React.Component {
   }
 
   getAllIngredientsAPI(query) {
-    console.log("Hola")
-    fetch(`https://api.spoonacular.com/food/ingredients/search?apiKey=6d106e958353435ca0dd71bb974c1032&query=${query}&number=50`)
+    fetch(`https://api.spoonacular.com/food/ingredients/search?apiKey=5db9859190b844508938ab2440044e2c&query=${query}&number=50`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({ ingredients: json.results });
@@ -30,6 +30,7 @@ export default class IngredientsScreen extends React.Component {
       .catch((error) => console.error(error))
       .finally(() => {
         this.setState({ isLoading: false });
+        console.log(this.state.ingredients)
       });
   }
 
@@ -57,20 +58,19 @@ export default class IngredientsScreen extends React.Component {
   }
 
   renderIngredient = ({ item }) => (
-    <TouchableHighlight underlayColor='rgba(73,182,77,0.9)'>
+    <TouchableHighlight onPress={() => this.onPressIngredient(item)}>
       <View style={styles.container}>
-        <Image style={styles.photo} source={item.image} />
+        <Image style={styles.photo} source={{uri: `https://spoonacular.com/cdn/ingredients_100x100/`+ item.image}} />
         <Text style={styles.title}>{item.name}</Text>
       </View>
     </TouchableHighlight>
   );
 
   render() {
-    //const ingredientsArray = getAllIngredientsAPI();
-    const { data, isLoading } = this.state;
-
+    const { ingredients, isLoading } = this.state;
+    console.log(ingredients)
     return (
-      <View>
+      <ScrollView>
         {isLoading ? <ActivityIndicator /> : (
           <View>
             <View>
@@ -102,16 +102,15 @@ export default class IngredientsScreen extends React.Component {
             <View>
               <FlatList
                 vertical
-                showsVerticalScrollIndicator={false}
                 numColumns={3}
-                data={this.state.ingredients}
+                data={ingredients}
                 keyExtractor={({ id }, index) => id}
                 renderItem={this.renderIngredient}
               />
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
     );
   }
 }

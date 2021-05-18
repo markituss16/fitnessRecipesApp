@@ -11,6 +11,7 @@ import RecipeScreen from './src/screens/Recipe/RecipeScreen';
 import CreateTemplateScreen from './src/screens/CreateTemplate/CreateTemplateScreen';
 import Signup from './src/screens/Signup/SignupScreen';
 import Login from './src/screens/Login/LoginScreen';
+import IngredientScreen from './src/screens/Ingredient/Ingredient';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -80,7 +81,7 @@ function BottomNavigator() {
 function MainNavigator() {
     return (
         <Stack.Navigator 
-            initialRouteName="Signup"
+            initialRouteName="Login"
             screenOptions={{
                 headerTitleAlign: 'center',
                 headerStyle: {
@@ -117,6 +118,15 @@ function MainNavigator() {
             <Stack.Screen
                 name="Recipe"
                 component={RecipeScreen}
+                options={{
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="Ingredient"
+                component={IngredientScreen}
                 options={{
                     headerTitleStyle: {
                         fontWeight: 'bold',

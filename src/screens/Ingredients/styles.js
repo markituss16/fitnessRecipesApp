@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: 'black',
     fontSize: 13,
-    textAlign: 'center'
+    textAlign: 'center',
+    textTransform: 'capitalize',
+    fontWeight: 'bold'
   },
   photo: {
     width: (SCREEN_WIDTH - RECIPE_ITEM_MARGIN) / numColumns - RECIPE_ITEM_OFFSET,

@@ -4,19 +4,20 @@ import {
   Text,
   View,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } from 'react-native';
 import styles from './styles';
 import { SearchBar } from 'react-native-elements';
-import {
-  getRecipesByRecipeName
-} from '../../data/MockData';
+import firebase from '../../database/firebaseDB';
+
+const db = firebase.firestore();
 
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      query: '',
       data: []
     };
   }
@@ -36,6 +37,18 @@ export default class Search extends React.Component {
     }
   };
 
+  fetchRecipesData = (query) => {
+    db.collection('receptes').doc(query).get().then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        list.push(doc.data());
+      });
+    })
+  }
+
+  componentDidMount() {
+    this.fetchRecipesData();
+  }
+
   getValue = () => {
     return this.state.value;
   };
@@ -51,44 +64,46 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <View>
-          <SearchBar
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderBottomColor: 'transparent',
-              borderTopColor: 'transparent',
-              flex: 1
-            }}
-            inputContainerStyle={{
-              backgroundColor: '#EDEDED'
-            }}
-            inputStyle={{
-              backgroundColor: '#EDEDED',
-              borderRadius: 10,
-              color: 'black'
-            }}
-            searchIcond
-            clearIcon
-            round
-            onChangeText={text => {
-              this.handleSearch(text);
-            }}
-            placeholder="Search"
-            value={this.state.value}
-          />
+          <View>
+            <SearchBar
+              containerStyle={{
+                backgroundColor: 'transparent',
+                borderBottomColor: 'transparent',
+                borderTopColor: 'transparent',
+                flex: 1
+              }}
+              inputContainerStyle={{
+                backgroundColor: '#EDEDED'
+              }}
+              inputStyle={{
+                backgroundColor: '#EDEDED',
+                borderRadius: 10,
+                color: 'black'
+              }}
+              searchIcond
+              clearIcon
+              round
+              onChangeText={text => {
+                this.handleSearch(text);
+              }}
+              placeholder="Search"
+              value={this.state.query}
+            />
+          </View>
+          <View>
+            <FlatList
+              vertical
+              showsVerticalScrollIndicator={false}
+              numColumns={2}
+              data={this.state.data}
+              renderItem={this.renderRecipes}
+              keyExtractor={item => `${item.recipeId}`}
+            />
+          </View>
         </View>
-        <View>
-          <FlatList
-            vertical
-            showsVerticalScrollIndicator={false}
-            numColumns={2}
-            data={this.state.data}
-            renderItem={this.renderRecipes}
-            keyExtractor={item => `${item.recipeId}`}
-          />
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }

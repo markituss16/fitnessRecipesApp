@@ -156,8 +156,6 @@ const styles = StyleSheet.create({
   //Settings
   gearButton:{
     flexDirection: 'row',
-    justifyContent: 'right',
-    alignItems: 'right',
   }
 }); 
 
