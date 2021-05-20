@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 
   container:{
     flex:1,
+    marginTop:20,
   },
   list: {
     paddingHorizontal: 17,
@@ -154,9 +155,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   //Settings
-  gearButton:{
-    flexDirection: 'row',
-  }
 }); 
 
 export default styles;

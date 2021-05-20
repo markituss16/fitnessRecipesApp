@@ -18,31 +18,24 @@ export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeSlide: 0
+            item: props.route.params.item,
         };
     }
 
-    renderImage = ({ item }) => (
-        <TouchableHighlight>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={item} />
-            </View>
-        </TouchableHighlight>
-    );
-
     render() {
-        //const { navigation } = this.props;
-        //const item = navigation.getParam('item');
+        const { item } = this.state;
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.infoRecipeContainer}>
-                    <View style={styles.infoContainer}>
-                        <Image style={styles.infoPhoto} source={require('../../../assets/arroz.jpg')} />
-                        <Text style={styles.infoRecipe}>20 minutes </Text>
-                    </View>
-                    <View style={styles.infoContainer}>
-                        <Text style={styles.infoDescriptionRecipe}>redvgrfbfb</Text>
-                    </View>
+            <ScrollView style={styles.mainContainer}>
+                <View style={{ borderBottomWidth: 0.4, marginBottom: 10, borderBottomColor: 'grey' }}>
+                    <Image style={styles.photoIngredient} source={{ uri: item.image }} />
+                </View>
+                <Text style={styles.infoRecipeName}>{item.title}</Text>
+                <View style={styles.infoContainer}>
+                    <Image style={styles.infoPhoto} source={require('../../../assets/time.png')} />
+                    <Text style={styles.infoRecipe}>{item.time}</Text>
+                </View>
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoDescriptionRecipe}>{item.infoRecipe}</Text>
                 </View>
             </ScrollView>
         );

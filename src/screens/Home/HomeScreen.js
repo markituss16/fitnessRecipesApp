@@ -23,6 +23,7 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            displayName: firebase.auth().currentUser.displayName,
             lista: [],
             loading: true,
             authenticated: false,
@@ -30,11 +31,11 @@ export default class HomeScreen extends React.Component {
     }
 
     onPressRecipe = item => {
-        this.props.navigation.navigate('Recipe');
+        this.props.navigation.navigate('Recipe', { item });
     };
 
     renderRecipes = ({ item }) => (
-        <TouchableHighlight onPress={() => this.onPressRecipe(item)}>
+        <TouchableHighlight underlayColor={'transparent'} onPress={() => this.onPressRecipe(item)}>
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
                     <View>
@@ -48,13 +49,13 @@ export default class HomeScreen extends React.Component {
                         <View style={styles.socialBarSection}>
                             <TouchableOpacity style={styles.socialBarButton}>
                                 <List.Icon icon="heart" />
-                                <Text style={styles.socialBarLabel}>78</Text>
+                                <Text style={styles.socialBarLabel}>{item.liked}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.socialBarSection}>
                             <TouchableOpacity style={styles.socialBarButton}>
                                 <List.Icon icon="bookmark" />
-                                <Text style={styles.socialBarLabel}>78</Text>
+                                <Text style={styles.socialBarLabel}>{item.saved}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -64,6 +65,7 @@ export default class HomeScreen extends React.Component {
     );
 
     fetchRecipesData = async () => {
+        this.state.lista = [];
         await db.collection('receptes').get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
                 this.state.lista.push(doc.data());
@@ -79,7 +81,6 @@ export default class HomeScreen extends React.Component {
         } else {
             this.setState({ loading: false, authenticated: false });
         }
-        this.fetchRecipesData();
     }
 
     render() {
@@ -88,11 +89,12 @@ export default class HomeScreen extends React.Component {
         if (!this.state.authenticated) {
             this.props.navigation.navigate('Login');
         }
+        this.fetchRecipesData();
         return (
             <View style={styles.container}>
                 <FlatList style={styles.list}
                     data={lista}
-                    keyExtractor={item => `${item.title}`}
+                    keyExtractor={item => `${item.postTime}`}
                     ItemSeparatorComponent={() => {
                         return (
                             <View style={styles.separator} />

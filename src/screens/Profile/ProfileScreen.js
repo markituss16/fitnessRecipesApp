@@ -21,8 +21,9 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: '',
-            list: []
+            displayName: firebase.auth().currentUser.displayName,
+            uid: firebase.auth().currentUser.uid,
+            userRecipes: [],
         }
     }
 
@@ -34,7 +35,7 @@ export default class Profile extends React.Component {
     }
 
     renderRecipes = ({ item }) => (
-        <TouchableHighlight onPress={() => this.onPressRecipe(item)}>
+        <TouchableHighlight underlayColor={'transparent'} onPress={() => this.onPressRecipe(item)}>
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
                     <View>
@@ -48,13 +49,13 @@ export default class Profile extends React.Component {
                         <View style={styles.socialBarSection}>
                             <TouchableOpacity style={styles.socialBarButton}>
                                 <List.Icon icon="heart" />
-                                <Text style={styles.socialBarLabel}>78</Text>
+                                <Text style={styles.socialBarLabel}>{item.liked}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.socialBarSection}>
                             <TouchableOpacity style={styles.socialBarButton}>
                                 <List.Icon icon="bookmark" />
-                                <Text style={styles.socialBarLabel}>78</Text>
+                                <Text style={styles.socialBarLabel}>{item.saved}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -64,31 +65,26 @@ export default class Profile extends React.Component {
     );
 
     fetchUserRecipesData = async () => {
-        await db.collection('receptes').where('username', '==', firebase.auth().currentUser.displayName).get().then((querySnapshot) => {
+        this.state.userRecipes = [];
+        await db.collection('receptes').where('username', '==', this.state.displayName).get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
-                this.state.list.push(doc.data());
+                this.state.userRecipes.push(doc.data());
             });
-            this.setState(this.state.list);
+            this.setState(this.state.userRecipes);
         })
     }
 
-    componentDidMount() {
-        this.fetchUserRecipesData();
-    }
-
     render() {
-        this.state = {
-            displayName: firebase.auth().currentUser.displayName,
-            uid: firebase.auth().currentUser.uid
-        }
+        const { userRecipes } = this.state;
+        this.fetchUserRecipesData();
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+            <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView
                     style={styles.container}
                     contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}
                     showsVerticalScrollIndicator={false}>
                     <TouchableOpacity style={styles.gearButton}>
-                        <List.Icon icon="exit-to-app" onPress={() => this.signOut()} />
+                        <Button title="Log out" onPress={() => this.signOut()}/>
                     </TouchableOpacity>
                     <Text style={styles.userName}>{this.state.displayName}</Text>
                     <Text style={styles.aboutUser}>
@@ -107,7 +103,7 @@ export default class Profile extends React.Component {
                     <View style={styles.divider} />
                     <View style={styles.container}>
                         <FlatList style={styles.list}
-                            data={this.state.lista}
+                            data={userRecipes}
                             keyExtractor={item => `${item.title}`}
                             ItemSeparatorComponent={() => {
                                 return (

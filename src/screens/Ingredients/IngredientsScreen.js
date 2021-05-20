@@ -58,7 +58,7 @@ export default class IngredientsScreen extends React.Component {
   }
 
   renderIngredient = ({ item }) => (
-    <TouchableHighlight onPress={() => this.onPressIngredient(item)}>
+    <TouchableHighlight underlayColor={'transparent'} onPress={() => this.onPressIngredient(item)}>
       <View style={styles.container}>
         <Image style={styles.photo} source={{uri: `https://spoonacular.com/cdn/ingredients_100x100/`+ item.image}} />
         <Text style={styles.title}>{item.name}</Text>

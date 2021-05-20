@@ -17,13 +17,13 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      value: '',
       data: []
     };
   }
 
   handleSearch(text) {
-    var recipeArray1 = getRecipesByRecipeName(text);
+    var recipeArray1 = this.fetchRecipesData(text);
     if (text == '') {
       this.setState({
         value: text,
@@ -37,16 +37,14 @@ export default class Search extends React.Component {
     }
   };
 
-  fetchRecipesData = (query) => {
-    db.collection('receptes').doc(query).get().then((querySnapshot) => {
+  fetchRecipesData = async(recipeName) => {
+    const recipes = [];
+    await db.collection('receptes').doc(recipeName).get().then((querySnapshot) => {
       querySnapshot.forEach(doc => {
-        list.push(doc.data());
+        recipes.push(doc.data());
       });
-    })
-  }
-
-  componentDidMount() {
-    this.fetchRecipesData();
+    });
+    return recipes;
   }
 
   getValue = () => {
@@ -56,7 +54,7 @@ export default class Search extends React.Component {
   renderRecipes = ({ item }) => (
     <TouchableHighlight underlayColor='rgba(101, 96, 71, 0.2)'>
       <View style={styles.container}>
-        <Image style={styles.photo} source={item.photo_url} />
+        <Image style={styles.photo} source={item.image} />
         <Text style={styles.title}>{item.title}</Text>
       </View>
     </TouchableHighlight>
@@ -89,7 +87,7 @@ export default class Search extends React.Component {
                 this.handleSearch(text);
               }}
               placeholder="Search"
-              value={this.state.query}
+              value={this.state.value}
             />
           </View>
           <View>
@@ -99,7 +97,7 @@ export default class Search extends React.Component {
               numColumns={2}
               data={this.state.data}
               renderItem={this.renderRecipes}
-              keyExtractor={item => `${item.recipeId}`}
+              keyExtractor={item => `${item.title}`}
             />
           </View>
         </View>

@@ -25,6 +25,9 @@ export default class CreateTemplateScreen extends React.Component {
             step2: '',
             image: null,
             uploading: false,
+            liked: 0,
+            saved: 0,
+            postTime: firebase.firestore.FieldValue.serverTimestamp()
         };
     }
 
@@ -96,15 +99,18 @@ export default class CreateTemplateScreen extends React.Component {
             ingredient1: this.state.ingredient1,
             ingredient2: this.state.ingredient2,
             step1: this.state.step1,
-            step2: this.state.step2
+            step2: this.state.step2,
+            liked: this.state.liked,
+            saved: this.state.saved,
+            postTime: this.state.postTime
         })
             .then(() => {
                 console.log("Data saved!");
-                this.props.navigation.navigate('Inici');
             })
             .catch((error) => {
                 console.error("Error escrivint document: ", error);
             });
+        this.props.navigation.navigate('Inici');
     }
 
     render() {
