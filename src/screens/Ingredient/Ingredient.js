@@ -58,7 +58,7 @@ export default class IngredientScreen extends React.Component {
                     {nutrients.map(n => 
                         <DataTable.Row>
                             <DataTable.Cell>{n.title}</DataTable.Cell>
-                            <DataTable.Cell numeric>{n.amount}</DataTable.Cell>
+                            <DataTable.Cell numeric>{n.amount} {n.unit}</DataTable.Cell>
                         </DataTable.Row>
                     )}
                 </DataTable>

@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
       padding: 35,
       backgroundColor: '#fff'
     },
+    infoContainer: {
+      alignItems: 'center',
+      marginBottom: 30
+    },
     inputStyle: {
       width: '100%',
       marginBottom: 15,
@@ -17,6 +21,10 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       borderColor: "#ccc",
       borderBottomWidth: 1
+    },
+    infoPhoto: {
+      height: 100,
+      width: 100,
     },
     loginText: {
       color: '#C84348',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../database/firebaseDB';
 import styles from './styles';
 
@@ -61,6 +61,9 @@ export default class Login extends Component {
         }
         return (
             <View style={styles.container}>
+                <View style={styles.infoContainer}>
+                    <Image style={styles.infoPhoto} source={require('../../../assets/logotip.png')} />
+                </View>                
                 <TextInput
                     style={styles.inputStyle}
                     placeholder="Email"

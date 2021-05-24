@@ -57,6 +57,9 @@ export default class Signup extends React.Component {
         }
         return (
             <View style={styles.container}>
+                <View style={styles.infoContainer}>
+                    <Image style={styles.infoPhoto} source={require('../../../assets/logotip.png')} />
+                </View> 
                 <TextInput
                     style={styles.inputStyle}
                     placeholder="Nom d'usuari"
