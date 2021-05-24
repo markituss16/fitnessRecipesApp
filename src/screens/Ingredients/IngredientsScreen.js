@@ -30,7 +30,6 @@ export default class IngredientsScreen extends React.Component {
       .catch((error) => console.error(error))
       .finally(() => {
         this.setState({ isLoading: false });
-        console.log(this.state.ingredients)
       });
   }
 
@@ -68,7 +67,6 @@ export default class IngredientsScreen extends React.Component {
 
   render() {
     const { ingredients, isLoading } = this.state;
-    console.log(ingredients)
     return (
       <ScrollView>
         {isLoading ? <ActivityIndicator /> : (

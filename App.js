@@ -4,7 +4,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import HomeScreen from './src/screens/Home/HomeScreen';
-import Search from './src/screens/Search/SearchScreen';
+import Categories from './src/screens/Categories/CategoriesScreen';
 import IngredientsScreen from './src/screens/Ingredients/IngredientsScreen';
 import ProfileScreen from './src/screens/Profile/ProfileScreen';
 import RecipeScreen from './src/screens/Recipe/RecipeScreen';
@@ -12,6 +12,7 @@ import CreateTemplateScreen from './src/screens/CreateTemplate/CreateTemplateScr
 import Signup from './src/screens/Signup/SignupScreen';
 import Login from './src/screens/Login/LoginScreen';
 import IngredientScreen from './src/screens/Ingredient/Ingredient';
+import CategoryScreen from './src/screens/Category/CategoryScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,8 +36,8 @@ function BottomNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Buscar"
-                component={Search}
+                name="Categories"
+                component={Categories}
                 options={{
                     tabBarColor: '#C84348',
                     tabBarIcon: ({ color }) => (
@@ -127,6 +128,15 @@ function MainNavigator() {
             <Stack.Screen
                 name="Ingredient"
                 component={IngredientScreen}
+                options={{
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="Category"
+                component={CategoryScreen}
                 options={{
                     headerTitleStyle: {
                         fontWeight: 'bold',

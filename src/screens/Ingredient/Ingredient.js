@@ -18,6 +18,7 @@ export default class IngredientScreen extends React.Component {
         super(props);
         this.state = {
             ingredient: [],
+            nutrients: [],
             item: props.route.params.item,
             isLoading: true,
         };
@@ -28,7 +29,7 @@ export default class IngredientScreen extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 this.setState({ ingredient: json });
-                console.log(this.state.ingredient)
+                this.setState({ nutrients: this.state.ingredient.nutrition.nutrients });
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -41,11 +42,12 @@ export default class IngredientScreen extends React.Component {
     }
 
     render() {
-        const { ingredient, isLoading } = this.state;
+        const ingredient = this.state.ingredient;
+        const nutrients = this.state.nutrients;
         return (
             <ScrollView style={styles.mainContainer}>
                 <View style={{ borderBottomWidth: 0.4, marginBottom: 10, borderBottomColor: 'grey' }}>
-                    <Image style={styles.photoIngredient} source={{uri: `https://spoonacular.com/cdn/ingredients_100x100/`+ ingredient.image}}/>
+                    <Image style={styles.photoIngredient} source={{ uri: `https://spoonacular.com/cdn/ingredients_100x100/` + ingredient.image }} />
                 </View>
                 <Text style={styles.ingredientInfo}>{ingredient.original}</Text>
                 <DataTable>
@@ -53,10 +55,12 @@ export default class IngredientScreen extends React.Component {
                         <DataTable.Title>Nutrients</DataTable.Title>
                         <DataTable.Title>Quantitat</DataTable.Title>
                     </DataTable.Header>
-                    <DataTable.Row>
-                        <DataTable.Cell></DataTable.Cell>
-                        <DataTable.Cell numeric></DataTable.Cell>
-                    </DataTable.Row>
+                    {nutrients.map(n => 
+                        <DataTable.Row>
+                            <DataTable.Cell>{n.title}</DataTable.Cell>
+                            <DataTable.Cell numeric>{n.amount}</DataTable.Cell>
+                        </DataTable.Row>
+                    )}
                 </DataTable>
             </ScrollView>
         );

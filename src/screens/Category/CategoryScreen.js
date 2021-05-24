@@ -19,40 +19,12 @@ import firebase from '../../database/firebaseDB';
 
 const db = firebase.firestore();
 
-export default class HomeScreen extends React.Component {
+export default class CategoryScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: firebase.auth().currentUser.displayName,
-            lista: [],
-            loading: true,
-            authenticated: false,
-        }
-    }
-
-    onPressRecipe = item => {
-        this.props.navigation.navigate('Recipe', { item });
-    };
-
-    likesPost = item => {
-        if (this.state.displayName) {
-            if (item.liked === false) {
-                db.collection('receptes').doc(item.title).update({
-                    likes: item.likes + 1, liked: true
-                })
-                    .then(() => {
-                        console.log('Data updated');
-                    });
-            } else {
-                db.collection('receptes').doc(item.title).update({
-                    likes: item.likes - 1, liked: false
-                })
-                    .then(() => {
-                        console.log('Data updated');
-                    });
-            }
-        } else {
-            this.props.navigation.navigate('Login')
+            itemCat: props.route.params.item,
+            category: [],
         }
     }
 
@@ -87,41 +59,24 @@ export default class HomeScreen extends React.Component {
     );
 
     fetchRecipesData = async () => {
-        await db.collection('receptes').get().then((querySnapshot) => {
+        await db.collection('receptes').where('category', '==', this.state.itemCat.nomCategoria).get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
-                this.state.lista.push(doc.data());
+                this.state.category.push(doc.data());
             });
-            this.setState(this.state.lista);
+            this.setState(this.state.category);
         })
     }
 
     componentDidMount() {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            this.setState({ loading: false, authenticated: true });
-        } else {
-            this.setState({ loading: false, authenticated: false });
-        }
         this.fetchRecipesData();
     }
 
-    componentDidUpdate(prevState) {
-        if (prevState.lista !== this.state.lista) {
-            this.fetchRecipesData();
-        }
-    }
-
     render() {
-        const { lista } = this.state;
-        if (this.state.loading) return null;
-        if (!this.state.authenticated) {
-            this.props.navigation.navigate('Login');
-        }
-        this.state.lista = [];
+        const { category } = this.state;
         return (
             <View style={styles.container}>
                 <FlatList style={styles.list}
-                    data={lista}
+                    data={category}
                     keyExtractor={item => `${item.title}`}
                     ItemSeparatorComponent={() => {
                         return (
@@ -131,6 +86,6 @@ export default class HomeScreen extends React.Component {
                     renderItem={this.renderRecipes}
                 />
             </View>
-        )
+        );
     }
 }

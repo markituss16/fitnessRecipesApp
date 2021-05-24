@@ -11,17 +11,12 @@ const RECIPE_ITEM_HEIGHT = 150;
 const RECIPE_ITEM_MARGIN = 20;
 
 const styles = StyleSheet.create({
-  container: {
+  infoRecipeContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: RECIPE_ITEM_MARGIN,
+    margin: 25,
     marginTop: 20,
-    width: (SCREEN_WIDTH - (recipeNumColums + 1) * RECIPE_ITEM_MARGIN) / recipeNumColums,
-    height: RECIPE_ITEM_HEIGHT + 75,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-    borderRadius: 15
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   photo: {
     width: (SCREEN_WIDTH - (recipeNumColums + 1) * RECIPE_ITEM_MARGIN) / recipeNumColums,
@@ -59,6 +54,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  infoIngredients: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginLeft: 14
+  },
   infoPhoto: {
     height: 20,
     width: 20,
@@ -71,9 +72,25 @@ const styles = StyleSheet.create({
   },
   infoDescriptionRecipe: {
     textAlign: 'left',
-    fontSize: 16,
-    marginTop: 30,
+    fontSize: 14,
+    marginTop: 5,
     margin: 15
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#808080",
+    marginVertical: 12,
+    margin:15,
+    borderBottomWidth: 1
+  },
+  author: {
+    fontSize: 14,
+    color: "#808080",
+    marginBottom: 10,
+  },
+  titol: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

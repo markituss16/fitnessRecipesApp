@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import styles from './styles';
 import firebase from '../../database/firebaseDB';
-import { List } from 'react-native-paper';
+import { List, IconButton, Colors } from 'react-native-paper';
 
 const db = firebase.firestore();
 
@@ -26,6 +26,10 @@ export default class Profile extends React.Component {
             userRecipes: [],
         }
     }
+
+    onPressRecipe = item => {
+        this.props.navigation.navigate('Recipe', { item });
+    };
 
     signOut = () => {
         firebase.auth().signOut().then(() => {
@@ -49,7 +53,7 @@ export default class Profile extends React.Component {
                         <View style={styles.socialBarSection}>
                             <TouchableOpacity style={styles.socialBarButton}>
                                 <List.Icon icon="heart" />
-                                <Text style={styles.socialBarLabel}>{item.liked}</Text>
+                                <Text style={styles.socialBarLabel}>{item.likes}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.socialBarSection}>
@@ -65,7 +69,6 @@ export default class Profile extends React.Component {
     );
 
     fetchUserRecipesData = async () => {
-        this.state.userRecipes = [];
         await db.collection('receptes').where('username', '==', this.state.displayName).get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
                 this.state.userRecipes.push(doc.data());
@@ -74,32 +77,29 @@ export default class Profile extends React.Component {
         })
     }
 
+    componentDidMount() {
+        this.fetchUserRecipesData();
+    }
+
+    componentDidUpdate(prevState) {
+        if (prevState.userRecipes !== this.state.userRecipes) {
+            this.fetchUserRecipesData();
+        }
+    }
+
     render() {
         const { userRecipes } = this.state;
-        this.fetchUserRecipesData();
+        this.state.userRecipes = [];
         return (
-            <SafeAreaView style={{ flex: 1 }}>
-                <ScrollView
+            <ScrollView>
+                <View
                     style={styles.container}
                     contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}
                     showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity style={styles.gearButton}>
-                        <Button title="Log out" onPress={() => this.signOut()}/>
-                    </TouchableOpacity>
-                    <Text style={styles.userName}>{this.state.displayName}</Text>
-                    <Text style={styles.aboutUser}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     </Text>
-                    <View style={styles.userInfoWrapper}>
-                        <View style={styles.userInfoItem}>
-                            <Text style={styles.userInfoTitle}>15</Text>
-                            <Text style={styles.userInfoSubTitle}>Publicacions</Text>
-                        </View>
-                        <View style={styles.userInfoItem}>
-                            <Text style={styles.userInfoTitle}>20</Text>
-                            <Text style={styles.userInfoSubTitle}>Favorits</Text>
-                        </View>
+                    <View style={{alignItems: 'center'}}>
+                        <IconButton icon="exit-to-app" size={30} onPress={() => this.signOut()} />
                     </View>
+                    <Text style={styles.userName}>{this.state.displayName}</Text>
                     <View style={styles.divider} />
                     <View style={styles.container}>
                         <FlatList style={styles.list}
@@ -113,8 +113,8 @@ export default class Profile extends React.Component {
                             renderItem={this.renderRecipes}
                         />
                     </View>
-                </ScrollView>
-            </SafeAreaView>
+                </View>
+            </ScrollView>
         )
     }
 }

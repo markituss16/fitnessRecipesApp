@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 19,
     textAlign: 'left',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
 });
 
